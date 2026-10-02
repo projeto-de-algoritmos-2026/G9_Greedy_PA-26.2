@@ -1,9 +1,4 @@
-"""Interval Scheduling (Pessoa A).
-
-Problema: escolher o maior número de palestras sem conflito de horário.
-Guloso: ordenar por horário de término e pegar a próxima compatível.
-Complexidade: O(n log n) pela ordenação; a varredura é O(n).
-"""
+# Interval Scheduling
 
 import csv
 from pathlib import Path
