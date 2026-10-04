@@ -5,6 +5,7 @@ import streamlit as st
 from abas.comum import editor_palestras, tabela_palestras
 from algoritmos.partitioning import interval_partitioning, profundidade
 from algoritmos.scheduling import formatar_hora
+from algoritmos.verificacao import forca_bruta_salas
 from visual.gantt import gantt
 
 
@@ -46,3 +47,12 @@ def mostrar():
         width="stretch",
     )
     st.caption("Complexidade: O(n log n), pela ordenação e pela heap de salas livres.")
+
+    st.subheader("Conferência com força bruta")
+    if st.button("Testar todas as distribuições de salas", key="forca_bruta_salas"):
+        with st.spinner("Testando..."):
+            otimo = forca_bruta_salas(palestras)
+        if otimo == len(salas):
+            st.success(f"A força bruta também precisou de {otimo} salas: o guloso deu a resposta ótima.")
+        else:
+            st.error(f"A força bruta encontrou {otimo} salas, e o guloso {len(salas)}.")
