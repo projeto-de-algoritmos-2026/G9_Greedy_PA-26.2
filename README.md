@@ -100,6 +100,28 @@ python -m algoritmos.huffman
 
 **No app:** número de salas, momento de pico, gráfico com uma linha por sala e conferência com força bruta.
 
+#### Scheduling to Minimize Lateness (Tarefas da equipe)
+
+**Problema:** a equipe executa uma tarefa por vez, sem pausas. Cada tarefa tem duração e prazo, e o atraso é quanto ela termina depois do prazo. O objetivo é minimizar o **maior** atraso.
+
+**Guloso:** ordena as tarefas pelo **prazo mais próximo** (Earliest Deadline First) e executa nessa ordem, sem intervalos.
+
+**Por que é ótimo:** qualquer ordem pode ser transformada na ordem por prazo trocando pares de tarefas "invertidas", e cada troca não aumenta o atraso máximo.
+
+**Complexidade:** O(n log n), por causa da ordenação.
+
+**No app:** atraso máximo, tarefas atrasadas em vermelho no gráfico, tabela com a ordem de execução e conferência com força bruta testando todas as ordens.
+
+#### Codificação de Huffman (Exportar programação)
+
+**Problema:** comprimir um texto usando códigos binários de tamanho variável, sem que nenhum código seja prefixo de outro.
+
+**Guloso:** conta a frequência de cada caractere e coloca todos numa heap. Retira sempre os dois nós de **menor frequência**, junta num nó novo com a soma e devolve para a heap, até sobrar a raiz. O caminho da raiz até cada caractere é o código dele (esquerda = 0, direita = 1).
+
+**Complexidade:** O(n log n), em que n é o número de caracteres distintos.
+
+**No app:** tamanho original e comprimido, tabela de códigos, desenho da árvore, conferência da decodificação e download dos bits.
+
 ### Estrutura do projeto
 
 ```

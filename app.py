@@ -1,6 +1,6 @@
 import streamlit as st
 
-from abas import aba_agenda, aba_salas
+from abas import aba_agenda, aba_huffman, aba_salas, aba_tarefas
 
 st.set_page_config(page_title="Organizador da Semana Acadêmica", layout="wide")
 st.title("Organizador da Semana Acadêmica")
@@ -19,12 +19,14 @@ with agenda:
 with salas:
     aba_salas.mostrar()
 
-# ===== ABA 3: Minimize Lateness (Pessoa B) =====
+with tarefas:
+    aba_tarefas.mostrar()
+
+with huffman:
+    st.header("Exportar programação (Huffman)")
+    st.info("Em construção: compressão do texto da programação.")
+    
 with tarefas:
     st.header("Tarefas da equipe (Minimize Lateness)")
     st.info("Em construção: ordem das tarefas que minimiza o atraso máximo.")
 
-# ===== ABA 4: Huffman (Pessoa B) =====
-with huffman:
-    st.header("Exportar programação (Huffman)")
-    st.info("Em construção: compressão do texto da programação.")
