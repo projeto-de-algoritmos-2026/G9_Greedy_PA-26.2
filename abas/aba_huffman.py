@@ -8,6 +8,9 @@ import streamlit as st
 
 from algoritmos.huffman import huffman_codificar, huffman_decodificar
 from algoritmos.scheduling import carregar_palestras, formatar_hora
+from visual.arvore import desenhar_arvore
+
+LIMITE_ARVORE = 25
 
 PASTA_DADOS = Path(__file__).resolve().parent.parent / "dados"
 NOMES_ESPECIAIS = {" ": "(espaço)", "\n": "(quebra de linha)", "\t": "(tab)"}
@@ -62,6 +65,20 @@ def mostrar():
         ]
     ).sort_values(["Frequência", "Caractere"], ascending=[False, True])
     st.dataframe(tabela, hide_index=True, width="stretch")
+
+    st.subheader("Árvore de Huffman")
+    st.caption(
+        "Cada folha é um caractere com sua frequência; cada nó interno soma as frequências dos filhos. "
+        "O código de um caractere é o caminho da raiz até ele (esquerda = 0, direita = 1)."
+    )
+    if len(codigos) > LIMITE_ARVORE:
+        st.info(
+            f"O texto tem {len(codigos)} caracteres diferentes; a árvore fica grande demais para ler. "
+            f"Use um texto com até {LIMITE_ARVORE} caracteres diferentes, como o exemplo abaixo."
+        )
+        exemplo = st.text_input("Texto curto para ver a árvore", value="semana academica", key="texto_arvore")
+        _, _, arvore = huffman_codificar(exemplo) if exemplo else (None, None, None)
+    st.graphviz_chart(desenhar_arvore(arvore), width="stretch")
 
     with st.expander("Ver texto codificado em bits"):
         st.code(bits[:2000] + ("..." if len(bits) > 2000 else ""), language=None)

@@ -1,5 +1,7 @@
 # Aba 3: Tarefas da equipe (Minimize Lateness)
 
+from itertools import permutations
+from math import factorial
 from pathlib import Path
 
 import pandas as pd
@@ -9,6 +11,7 @@ from algoritmos.lateness import carregar_tarefas, minimize_lateness
 from visual.gantt import gantt
 
 PASTA_DADOS = Path(__file__).resolve().parent.parent / "dados"
+LIMITE_FORCA_BRUTA = 9
 
 
 def mostrar():
@@ -72,3 +75,25 @@ def mostrar():
         width="stretch",
     )
     st.caption("Complexidade: O(n log n), por causa da ordenação por prazo.")
+
+    st.subheader("Conferência com força bruta")
+    if len(tarefas) > LIMITE_FORCA_BRUTA:
+        st.info(f"A força bruta testa n! ordens; use até {LIMITE_FORCA_BRUTA} tarefas.")
+        return
+    if st.button("Testar todas as ordens possíveis", key="forca_bruta_tarefas"):
+        with st.spinner("Testando..."):
+            otimo = min(atraso_da_ordem(ordem) for ordem in permutations(tarefas))
+        st.write(f"Ordens possíveis: **{factorial(len(tarefas)):,}**".replace(",", "."))
+        if otimo == atraso_maximo:
+            st.success(f"O menor atraso máximo possível é {otimo} min: a ordem por prazo é ótima.")
+        else:
+            st.error(f"A força bruta encontrou {otimo} min, e o guloso {atraso_maximo} min.")
+
+
+def atraso_da_ordem(ordem):
+    """Maior atraso ao executar as tarefas na ordem dada, sem pausas."""
+    tempo, pior = 0, 0
+    for tarefa in ordem:
+        tempo += tarefa["duracao"]
+        pior = max(pior, tempo - tarefa["prazo"])
+    return pior
