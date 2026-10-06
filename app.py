@@ -23,10 +23,4 @@ with tarefas:
     aba_tarefas.mostrar()
 
 with huffman:
-    st.header("Exportar programação (Huffman)")
-    st.info("Em construção: compressão do texto da programação.")
-    
-with tarefas:
-    st.header("Tarefas da equipe (Minimize Lateness)")
-    st.info("Em construção: ordem das tarefas que minimiza o atraso máximo.")
-
+    aba_huffman.mostrar()
