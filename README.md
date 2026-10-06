@@ -20,6 +20,8 @@ O **Organizador da Semana Acadêmica** é um app em Streamlit que usa algoritmos
 
 Em todas as abas os dados podem ser editados na própria tela, e o resultado do guloso pode ser conferido com uma solução de força bruta.
 
+[Clique aqui para assistir ao vídeo de apresentação do projeto](https://youtu.be/m_kIFeZvQ50)
+
 ## Screenshots
 
 ![Print-1](prints/print1.png)
